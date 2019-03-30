@@ -1,17 +1,22 @@
-#include "usb_controller.hpp"
-#include <bitset>
+#include "serial_arduino.hpp"
 #include <iostream>
-#include <libusb.h>
+#include <string>
 #include <vector>
 #include <windows.h>
 
+/*
+COM2:   Due
+COM5:   Uno
+*/
+
 int main(void) {
-    std::vector<unsigned char> input_vector;
-    usb_controller logitech(129, 1133, 49686);
-    while (!(GetKeyState('A') & 0x8000) && logitech.controller_exist()) {
-        input_vector = logitech.get_controller_output();
-        for (unsigned int i = 0; i < input_vector.size(); i++) {
-            std::cout << std::bitset<8>(input_vector[i]) << " ";
+    const char *port = "\\\\.\\COM2";
+    serial_arduino arduino(port, 64);
+    std::vector<unsigned char> input;
+    while (!(GetKeyState('A') & 0x8000) && arduino.isConnected()) {
+        input = arduino.serial_read();
+        for (auto &i : input) {
+            std::cout << static_cast<int>(i) << ",";
         }
         std::cout << std::endl;
     }
