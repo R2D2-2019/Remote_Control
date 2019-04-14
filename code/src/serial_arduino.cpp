@@ -1,6 +1,7 @@
 #include "serial_arduino.hpp"
 
-std::vector<unsigned char> serial_arduino::extract_bytes(std::string input) {
+std::vector<unsigned char>
+r2d2::remote_control::serial_arduino_c::extract_bytes(std::string input) {
     std::vector<unsigned char> vec;
     std::string tmp = "";
     for (unsigned int i = 0; i < input.size(); i++) {
@@ -14,7 +15,8 @@ std::vector<unsigned char> serial_arduino::extract_bytes(std::string input) {
     return vec;
 }
 
-std::vector<unsigned char> serial_arduino::serial_read() {
+std::vector<unsigned char>
+r2d2::remote_control::serial_arduino_c::serial_read() {
     unsigned char input[buffer_size];
     std::vector<unsigned char> vec;
     std::string tmp = "";
@@ -31,6 +33,6 @@ std::vector<unsigned char> serial_arduino::serial_read() {
     return vec;
 }
 
-bool serial_arduino::isConnected() {
+bool r2d2::remote_control::serial_arduino_c::isConnected() {
     return arduino->isConnected();
 }
