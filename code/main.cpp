@@ -11,7 +11,7 @@ COM5:   Uno
 
 int main(void) {
     const char *port = "\\\\.\\COM2";
-    serial_arduino arduino(port, 64);
+    r2d2::remote_control::serial_arduino_c arduino(port, 64);
     std::vector<unsigned char> input;
     while (!(GetKeyState('A') & 0x8000) && arduino.isConnected()) {
         input = arduino.serial_read();
