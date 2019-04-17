@@ -1,5 +1,7 @@
 #pragma once
 #include "SerialPort.h"
+#include <algorithm>
+#include <array>
 #include <iostream>
 #include <vector>
 
@@ -46,8 +48,32 @@ namespace r2d2::remote_control {
         std::vector<unsigned char> serial_read();
 
         /**
-         * This method checks of there is a connection between the PC and the
-         * Arduino and returns true for a connection and false for no
+         * This template method sends a std::array (type: unsigned char) to an
+         * Arduino.
+         * @tparam S Array size.
+         * @param std::array<unsigned char, S>
+         */
+        template <size_t S>
+        void serial_write(std::array<unsigned char, S> data) {
+            unsigned char buffer[S];
+            std::copy(data.begin(), data.end(), std::begin(buffer));
+            arduino->writeSerialPort(buffer, S);
+        }
+
+        /**
+         * This template method sends a C-style array (type: unsigned char) to an
+         * Arduino.
+         * @tparam S Array size.
+         * @param unsigned char data[S]
+         */
+        template <size_t S>
+        void serial_write(unsigned char data[S]) {
+            arduino->writeSerialPort(data, S);
+        }
+
+        /**
+         * This method checks of there is a connection between the PC and
+         * the Arduino and returns true for a connection and false for no
          * connection.
          * @return bool
          */
