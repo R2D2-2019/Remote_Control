@@ -5,8 +5,7 @@
 
 #include <hwlib.hpp>
 #include "PS2_bus.hpp"
-
-// #include "test.cpp"
+#include "PS2_controller.hpp"
 
 typedef hwlib::target::pins duepin ;
 namespace target = hwlib::target;
