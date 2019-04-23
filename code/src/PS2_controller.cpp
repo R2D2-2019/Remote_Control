@@ -60,10 +60,6 @@ std::array<uint16_t, 2> PS2_controller_c::get_joystick(const bool right_joystick
 }
 
 
-uint_fast8_t PS2_controller_c::number_of_pins() {
-    return 8;
-}
-
 uint_fast8_t PS2_controller_c::read() {
     this->refresh();
     return this->hwlib_buffer;
@@ -78,8 +74,8 @@ void PS2_controller_c::refresh() {
     this->hwlib_buffer = ~output;
 }
 
-VirtualPinIn PS2_controller_c::pin_button(const VirtualPinIn::buttons &button){
-    return VirtualPinIn(this->buffer, button, this);
+virtual_pin_in_c PS2_controller_c::pin_button(const virtual_pin_in_c::buttons &button){
+    return virtual_pin_in_c(this->buffer, button, this);
 }
 
 void PS2_controller_c::set_config_mode(const bool enabled){
@@ -94,8 +90,22 @@ void PS2_controller_c::set_config_mode(const bool enabled){
 
 void PS2_controller_c::set_analog_mode(const bool enabled, const bool locked ) {
     this->set_config_mode(true);
-    this->_setModeCommand[3] = enabled ? uint8_t(0x01) : uint8_t(0x00);
-    this->_setModeCommand[4] = locked ? uint8_t(0x03) : uint8_t(0x00);
+    if(enabled){
+        _setModeCommand[3] = uint8_t(0x01);
+        analog_mode = true;
+    }
+    else{
+        _setModeCommand[3] = uint8_t(0x00);
+        analog_mode = true; 
+    }
+    if(locked){
+        _setModeCommand[4] = uint8_t(0x03);
+        controller_locked = true;
+    }
+    else{
+        _setModeCommand[4] = uint8_t(0x00);
+        controller_locked = false;
+    }
     this->execute_command(this->_setModeCommand);
     this->set_config_mode(false);
 }

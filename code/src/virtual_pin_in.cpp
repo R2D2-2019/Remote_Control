@@ -1,27 +1,27 @@
 #include "virtual_pin_in.hpp"
 
-VirtualPinIn::VirtualPinIn(const VirtualPinIn &copy): 
-    _target(copy._target), 
-    _position(copy._position), 
-    _port(copy._port) 
+virtual_pin_in_c::virtual_pin_in_c(const virtual_pin_in_c &copy): 
+    target(copy.target), 
+    position(copy.position), 
+    port(copy.port) 
 {}
 
-VirtualPinIn::VirtualPinIn(uint16_t &target, buttons position, hwlib::port_in* port):
-    _target(&target), 
-    _position(position), 
-    _port(port) 
+virtual_pin_in_c::virtual_pin_in_c(uint16_t &target, buttons position, hwlib::port_in* port):
+    target(&target), 
+    position(position), 
+    port(port) 
 {}
 
-bool VirtualPinIn::read() {
-    if(this->_port != nullptr) {
-        this->_port->refresh();
+bool virtual_pin_in_c::read() {
+    if(this->port != nullptr) {
+        this->port->refresh();
     }
-    return ((*this->_target) >> (uint16_t)this->_position) & 0x01;
+    return ((*this->target) >> (uint16_t)this->position) & 0x01;
 }
 
-void VirtualPinIn::refresh(){
-        if(this->_port == nullptr){
+void virtual_pin_in_c::refresh(){
+        if(this->port == nullptr){
             return;
         }
-        this->_port->refresh();
+        this->port->refresh();
     }
