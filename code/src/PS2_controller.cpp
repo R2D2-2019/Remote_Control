@@ -58,7 +58,9 @@ std::array<uint16_t, 2> PS2_controller_c::get_joystick(const bool right_joystick
     }
     return values;
 }
-
+uint_fast8_t PS2_controller_c::number_of_pins(){
+    return 8;
+}
 
 uint_fast8_t PS2_controller_c::read() {
     this->refresh();

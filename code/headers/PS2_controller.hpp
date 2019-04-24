@@ -172,6 +172,10 @@ public:
      *  pin specific button from virtual_pin_in_c::buttons
      */
     virtual_pin_in_c pin_button(const virtual_pin_in_c::buttons &button);
+    /**
+     * returns number of pins
+     */ 
+    virtual uint_fast8_t number_of_pins() override ;
 
     /**
      * Execute a given command

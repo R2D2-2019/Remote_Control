@@ -16,6 +16,7 @@ bool virtual_pin_in_c::read() {
     if(this->port != nullptr) {
         this->port->refresh();
     }
+    hwlib::cout << position << " :POS\n";
     return ((*this->target) >> (uint16_t)this->position) & 0x01;
 }
 
