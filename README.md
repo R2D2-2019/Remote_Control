@@ -1,1 +1,1 @@
-# Remote_Control
+This branch contains the code of the Trust Formule 1 steering wheel controller interface. 
