@@ -46,7 +46,7 @@ namespace r2d2::manual_control {
          *  @internal Reads the data of the slider.
          *  @return the data of the slider (type: uint8_t).
          */
-        uint8_t get_slider(const int &slider);
+        int8_t get_slider(const int &slider);
 
         /**
          * This function gets the data of a button.

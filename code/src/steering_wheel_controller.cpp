@@ -14,19 +14,23 @@ bool r2d2::manual_control::steering_wheel_controller_c::read() {
     return false;
 }
 
-uint8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
+int8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
     const int &slider) {
-    if ((sliders[slider]->read() / 16) > 0) {
-        return sliders[slider]->read() / 16;
-    }
+    if (slider == 0) {
+        int wheel_degrees = sliders[0]->read();
 
-    return sliders[slider]->read();
-    return false;
+        return ((wheel_degrees - 320) * 180 / (4030 - 320) - 90);
+    } else {
+
+        int pedal_percentage = sliders[1]->read();
+
+        return ((pedal_percentage - 340) * 200 / (4030 - 340) - 110);
+    }
 }
 
 bool r2d2::manual_control::steering_wheel_controller_c::get_button(
     const int &button) {
-    return buttons[button]->read();
+    return !buttons[button]->read();
 }
 
 void r2d2::manual_control::steering_wheel_controller_c::print() {
@@ -34,6 +38,8 @@ void r2d2::manual_control::steering_wheel_controller_c::print() {
                 << "| B2: " << buttons[1]->read()
                 << "| B3: " << buttons[2]->read()
                 << "| B4: " << buttons[3]->read() << "| \n";
-    hwlib::cout << "wheel: " << sliders[0]->read() / 16
-                << " | pedals: " << sliders[1]->read() / 16 << "\n";
+
+    hwlib::cout << "wheel: " << get_slider(0)
+                << " | pedals: " << get_slider(1)
+                << "\n";
 }

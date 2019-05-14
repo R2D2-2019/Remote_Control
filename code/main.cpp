@@ -1,6 +1,8 @@
 #include <hwlib.hpp>
 
-#include <steering_wheel_controller.hpp>
+//#include <steering_wheel_controller.hpp>
+#include <comm.hpp>
+#include <module.hpp>
 
 namespace target = hwlib::target;
 
@@ -13,6 +15,8 @@ int main(void) {
 
     hwlib::wait_ms(10);
 
+    comm_c comm;
+
     auto button1 = hwlib::target::pin_in(hwlib::target::pins::d2);
     auto button2 = hwlib::target::pin_in(hwlib::target::pins::d3);
     auto button3 = hwlib::target::pin_in(hwlib::target::pins::d4);
@@ -20,12 +24,15 @@ int main(void) {
     auto wheel = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
     auto pedals = hwlib::target::pin_adc(hwlib::target::ad_pins::a1);
 
-    manual_control::steering_wheel_controller_c steering_wheel_controller(
+    auto steering_wheel_controller = manual_control::steering_wheel_controller_c(
         button1, button2, button3, button4, wheel, pedals);
 
-    while (true) {
+    manual_control::module_c module(comm, steering_wheel_controller);
+
+    for (;;) {
+        //steering_wheel_controller.print();
+        module.process();
         hwlib::wait_ms(100);
-        steering_wheel_controller.print();
     }
 
     return 0;

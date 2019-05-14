@@ -22,26 +22,23 @@ namespace r2d2::manual_control {
          * @param steering_wheel - The steering wheel controller that represents
          * the steering wheel/manual control.
          */
-        steering_wheel_controller_c(base_comm_c &comm, steering_wheel)
+        module_c(base_comm_c &comm, steering_wheel_controller_c &steering_wheel)
             : base_module_c(comm), steering_wheel(steering_wheel) {
 
-            comm.listen_for_frames({frame_type::MANUAL_CONTROL});
+            comm.listen_for_frames(
+                {
+                    frame_type::MOVEMENT_CONTROL
+                }
+            );
         }
 
         /**
          * This function lets the module process data
          */
         void process() override {
-            frame_manual_control_state_s<4, 2> frame;
-            frame.buttons[0] = steering_wheel.get_button(0);
-            frame.buttons[1] = steering_wheel.get_button(1);
-            frame.buttons[2] = steering_wheel.get_button(2);
-            frame.buttons[3] = steering_wheel.get_button(3);
-
-            frame.sliders[0] = steering_wheel.get_sliders(0);
-            frame.sliders[1] = steering_wheel.get_sliders(1);
 
             while (comm.has_data()) {
+
                 auto frame = comm.get_data();
 
                 /*
@@ -50,11 +47,17 @@ namespace r2d2::manual_control {
                 if (!frame.request) {
                     continue;
                 }
+                frame_movement_control_s movement_state;
+
+                movement_state.brake = steering_wheel.get_button(2);
+                movement_state.rotation = steering_wheel.get_slider(0);
+                movement_state.speed = steering_wheel.get_slider(1);
+
 
                 /*
                  * Send it off!
                  */
-                comm.send(frame);
+                comm.send(movement_state);
             }
         }
     };
