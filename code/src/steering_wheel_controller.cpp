@@ -19,12 +19,29 @@ int8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
     if (slider == 0) {
         int wheel_degrees = sliders[0]->read();
 
-        return ((wheel_degrees - 320) * 180 / (4030 - 320) - 90);
+        wheel_degrees = ((wheel_degrees - 320) * 180 / (4030 - 320) - 90);
+        if (wheel_degrees < 15 && wheel_degrees > -15) {
+            return 0;
+        } else if (wheel_degrees > 90) {
+            return 100;
+        } else if (wheel_degrees < -90) {
+            return -100;
+        } else {
+            return wheel_degrees;
+        }
     } else {
-
         int pedal_percentage = sliders[1]->read();
 
-        return ((pedal_percentage - 340) * 200 / (4030 - 340) - 110);
+        pedal_percentage =
+            ((pedal_percentage - 340) * 200 / (4030 - 340) - 110);
+
+        if (pedal_percentage > 100) {
+            return 100;
+        } else if (pedal_percentage < -100) {
+            return -100;
+        } else {
+            return pedal_percentage;
+        }
     }
 }
 
@@ -39,7 +56,6 @@ void r2d2::manual_control::steering_wheel_controller_c::print() {
                 << "| B3: " << buttons[2]->read()
                 << "| B4: " << buttons[3]->read() << "| \n";
 
-    hwlib::cout << "wheel: " << get_slider(0)
-                << " | pedals: " << get_slider(1)
+    hwlib::cout << "wheel: " << get_slider(0) << " | pedals: " << get_slider(1)
                 << "\n";
 }
