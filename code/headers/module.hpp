@@ -27,7 +27,7 @@ namespace r2d2::manual_control {
 
             comm.listen_for_frames(
                 {
-                    frame_type::MOVEMENT_CONTROL
+                    frame_type::MANUAL_CONTROL
                 }
             );
         }
@@ -47,7 +47,7 @@ namespace r2d2::manual_control {
                 if (!frame.request) {
                     continue;
                 }
-                frame_movement_control_s movement_state;
+                frame_manual_control_s movement_state;
 
                 movement_state.brake = steering_wheel.get_button(2);
                 movement_state.rotation = steering_wheel.get_slider(0);
