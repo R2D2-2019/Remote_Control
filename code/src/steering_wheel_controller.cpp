@@ -35,7 +35,9 @@ int8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
         pedal_percentage =
             ((pedal_percentage - 340) * 200 / (4030 - 340) - 110);
 
-        if (pedal_percentage > 100) {
+        if(pedal_percentage > -5 && pedal_percentage < 5){
+            return 0;
+        } else if (pedal_percentage > 100) {
             return 100;
         } else if (pedal_percentage < -100) {
             return -100;
