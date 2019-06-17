@@ -3,7 +3,7 @@
 
 namespace R2D2::manual_control {
     
-    enum buttons {button_a, button_b, button_x, button_y, dpad_up, dpad_down, dpad_left, dpad_right, bumper_lb, bumper_rb, menu_left, menu_right};
+    enum buttons {button_a, button_b, button_x, button_y, dpad_up, dpad_down, dpad_left, dpad_right, bumper_left, bumper_right, menu_left, menu_right};
     enum sliders {slider_l, slider_r};
     enum joysticks {joystick_l, joystick_r};
 
@@ -26,22 +26,21 @@ namespace R2D2::manual_control {
     * 
     * @return bool 
     */
-        virtual bool get_button();
+        virtual bool get_button(buttons button) = 0;
         
     /**
     * @brief Get a slider value from the controller
     * 
     * @return unsigned char 
     */
-        virtual unsigned char get_slider();
+        virtual unsigned char get_slider(sliders slider) = 0;
    
     /**
     * @brief Get a joystick value from the controller. This returns a struct. 
     * 
     * @return joystick_value_s 
     */   
-        virtual joystick_value_s get_joystick();
-    }
-
+        virtual joystick_value_s get_joystick(joysticks joystick) = 0;
+    };
 
 }
