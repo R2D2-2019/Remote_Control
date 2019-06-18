@@ -1,14 +1,14 @@
 #pragma once
 #include <joystick_value_s.hpp>
 
-namespace R2D2::manual_control {
+namespace r2d2::manual_control {
     
     enum buttons {button_a, button_b, button_x, button_y, dpad_up, dpad_down, dpad_left, dpad_right, bumper_left, bumper_right, menu_left, menu_right};
     enum sliders {slider_l, slider_r};
     enum joysticks {joystick_l, joystick_r};
 
 
-    /**
+/**
  *  \brief
  *  This class is an interface for different kinds of controllers.
  * 
@@ -18,9 +18,6 @@ namespace R2D2::manual_control {
  */
     class controller_interface_c{
     public:
-
-        controller_interface_c(){}
-
     /**
     * @brief Get a button value from the controller
     * 
