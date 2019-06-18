@@ -7,6 +7,6 @@ int main(void) {
     hwlib::wait_ms(1000);
       hwlib::cout << "this works via arduino";
       hwlib::wait_ms(1000);
-      auto test = R2D2::manual_control::dummy_controller_c();
+      auto test = r2d2::manual_control::dummy_controller_c();
 
 }
