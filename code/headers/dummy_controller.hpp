@@ -1,14 +1,14 @@
 #pragma once
-#include <controller_interface_c.hpp>
+#include <controller_interface.hpp>
 
 namespace r2d2::manual_control {
 
     class dummy_controller_c : public controller_interface_c {
     private:
         // initializing all buttons, sliders and joysticks at their base (0)
-        bool buttons[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        unsigned char sliders[2] = {0, 0};
-        joystick_value_s joysticks[2] = {{0, 0}, {0, 0}};
+        bool buttons[12] = {};
+        unsigned char sliders[2] = {};
+        joystick_value_s joysticks[2] = {};
 
     public:
         /**
