@@ -1,5 +1,5 @@
 #pragma once
-#include <joystick_value_s.hpp>
+#include <joystick_value.hpp>
 
 namespace r2d2::manual_control {
 
@@ -25,9 +25,9 @@ namespace r2d2::manual_control {
      *  This class is an interface for different kinds of controllers.
      *
      *  \details
-     *   Every controller will inherit from this class. This class is a custom
-     * R2D2-controller this controller can be found on the wiki. The buttons of
-     * every controller will map to the buttons of the 'fake controller'.
+     *  Every controller will inherit from this class. This class is a custom
+     *  R2D2-controller this controller can be found on the wiki. The buttons of
+     *  every controller will map to the buttons of the 'fake controller'.
      */
     class controller_interface_c {
     public:

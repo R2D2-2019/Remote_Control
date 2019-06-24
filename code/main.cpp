@@ -1,5 +1,6 @@
-#include "hwlib.hpp"
-#include <dummy_controller_c.hpp>
+#include <dummy_controller.hpp>
+#include <hwlib.hpp>
+
 
 int main(void) {
     // kill the watchdog

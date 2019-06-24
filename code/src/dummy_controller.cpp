@@ -1,5 +1,5 @@
-#include <controller_interface_c.hpp>
-#include <dummy_controller_c.hpp>
+#include <controller_interface.hpp>
+#include <dummy_controller.hpp>
 
 // getters
 bool r2d2::manual_control::dummy_controller_c::get_button(
