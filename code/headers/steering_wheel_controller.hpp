@@ -16,7 +16,7 @@ namespace r2d2::manual_control {
     public:
         /**
          * Instantiate the steering wheel controller class
-         * 
+         *
          * @param button1 The digital input that reads the button state.
          * @param button2 The digital input that reads the button state.
          * @param button3 The digital input that reads the button state.
@@ -34,7 +34,7 @@ namespace r2d2::manual_control {
         /**
          * This function overrides the read() function of pin_in
          * and reads the data of a pin_in.
-         * 
+         *
          * @internal refreshes/reads the incoming data.
          */
         bool read() override;

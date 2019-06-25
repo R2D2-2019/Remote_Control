@@ -24,15 +24,15 @@ int main(void) {
     auto wheel = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
     auto pedals = hwlib::target::pin_adc(hwlib::target::ad_pins::a1);
 
-    auto steering_wheel_controller = manual_control::steering_wheel_controller_c(
-        button1, button2, button3, button4, wheel, pedals);
+    auto steering_wheel_controller =
+        manual_control::steering_wheel_controller_c(button1, button2, button3,
+                                                    button4, wheel, pedals);
 
     manual_control::module_c module(comm, steering_wheel_controller);
 
     for (;;) {
-        //steering_wheel_controller.print();
         module.process();
-        hwlib::wait_ms(100);
+        hwlib::wait_ms(500);
     }
 
     return 0;

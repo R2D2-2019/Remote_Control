@@ -25,11 +25,7 @@ namespace r2d2::manual_control {
         module_c(base_comm_c &comm, steering_wheel_controller_c &steering_wheel)
             : base_module_c(comm), steering_wheel(steering_wheel) {
 
-            comm.listen_for_frames(
-                {
-                    frame_type::MANUAL_CONTROL
-                }
-            );
+            comm.listen_for_frames({frame_type::MANUAL_CONTROL});
         }
 
         /**
@@ -52,7 +48,6 @@ namespace r2d2::manual_control {
                 movement_state.brake = steering_wheel.get_button(2);
                 movement_state.rotation = steering_wheel.get_slider(0);
                 movement_state.speed = steering_wheel.get_slider(1);
-
 
                 /*
                  * Send it off!
