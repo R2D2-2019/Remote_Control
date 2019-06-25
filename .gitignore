@@ -1,0 +1,15 @@
+*.o
+*.elf
+*.bin
+*.c
+*.map
+*.ld
+*.cbp
+*.lss
+*.exe
+*.lst
+.vscode/ipch
+.idea/
+cmake*/
+CMakeLists.txt
+settings.json
