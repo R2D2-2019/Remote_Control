@@ -8,7 +8,6 @@
 *.lss
 *.exe
 *.lst
-.vscode/
 .idea/
 cmake*/
 CMakeLists.txt
