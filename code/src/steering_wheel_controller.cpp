@@ -3,16 +3,18 @@
 r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(
     hwlib::target::pin_in &button1, hwlib::target::pin_in &button2,
     hwlib::target::pin_in &button3, hwlib::target::pin_in &button4,
-    hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals)
-    : buttons{&button1, &button2, &button3, &button4},
-      sliders{&wheel, &pedals} {
+    hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals
+): 
+    buttons{&button1, &button2, &button3, &button4},
+    sliders{&wheel, &pedals}
+{
 }
 
-bool r2d2::manual_control::steering_wheel_controller_c::read() {
-    this->refresh();
+// bool r2d2::manual_control::steering_wheel_controller_c::read() {
+//     this->refresh();
 
-    return false;
-}
+//     return false;
+// }
 
 int8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
     const int &slider) {
@@ -60,4 +62,18 @@ void r2d2::manual_control::steering_wheel_controller_c::print() {
 
     hwlib::cout << "wheel: " << get_slider(0) << " | pedals: " << get_slider(1)
                 << "\n";
+}
+
+r2d2::manual_control::manualControl_c::State r2d2::manual_control::steering_wheel_controller_c::getState(){
+    setButton(0, get_button(0));
+    setButton(1, get_button(1));
+    setButton(2, get_button(2));
+    setButton(3, get_button(3));
+
+    state.mAxesLX = get_slider(0);
+    state.mAxesLY = get_slider(1);
+    state.mAxesRX = get_slider(2);
+    state.mAxesRY = get_slider(3);
+    
+    return state;
 }

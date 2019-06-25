@@ -2,13 +2,15 @@
 
 #include <hwlib.hpp>
 
+#include "manual_control_interface.hpp"
+
 namespace r2d2::manual_control {
 
     /**
      * Class steering_wheel_controller_c provides functions
      * for reading the data of the trust steering wheel.
      */
-    class steering_wheel_controller_c : public hwlib::pin_in {
+    class steering_wheel_controller_c : public manualControl_c {
     private:
         std::array<hwlib::target::pin_in *, 4> buttons;
         std::array<hwlib::target::pin_adc *, 2> sliders;
@@ -37,7 +39,7 @@ namespace r2d2::manual_control {
          * 
          * @internal refreshes/reads the incoming data.
          */
-        bool read() override;
+        //bool read() override;
 
         /**
          * This function gets the data of a slider
@@ -62,5 +64,7 @@ namespace r2d2::manual_control {
          * the incoming data of the steering wheel.
          */
         void print();
+
+        State getState() override;
     };
 } // namespace r2d2::manual_control
