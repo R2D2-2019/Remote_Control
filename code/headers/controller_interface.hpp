@@ -49,9 +49,9 @@ namespace r2d2::manual_control {
          * @brief Get a joystick value from the controller. This returns a
          * struct.
          *
-         * @return joystick_value_s
+         * @return joystick_value_c
          */
-        virtual joystick_value_s get_joystick(joysticks joystick) = 0;
+        virtual joystick_value_c get_joystick(joysticks joystick) = 0;
     };
 
 } // namespace r2d2::manual_control
