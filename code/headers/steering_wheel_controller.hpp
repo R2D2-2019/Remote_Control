@@ -12,12 +12,16 @@ namespace r2d2::manual_control {
      */
 class steering_wheel_controller_c : public hwlib::pin_in,  public controller_interface_c {
     private:
+        // Button on the steering wheel
         hwlib::target::pin_in &button1;
         hwlib::target::pin_in &button2;
         hwlib::target::pin_in &button3;
         hwlib::target::pin_in &button4;
 
+        // The steering wheel itself
         hwlib::target::pin_adc &steering_wheel;
+
+        // The pedals
         hwlib::target::pin_adc &pedals;
 
         /**
@@ -75,6 +79,7 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
         unsigned char get_slider(sliders slider) override;
 
         /**
+         * This functions gets the data of a joystick
          *
          * @param joystick
          * @return

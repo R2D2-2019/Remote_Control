@@ -23,7 +23,7 @@ unsigned char r2d2::manual_control::steering_wheel_controller_c::get_slider(slid
             if(get_pedals() < 0){
                 return 0;
             }else{
-                return get_pedals();
+                return get_pedals() * -1;
             }
         default:
             return 0;
@@ -33,13 +33,13 @@ unsigned char r2d2::manual_control::steering_wheel_controller_c::get_slider(slid
 bool r2d2::manual_control::steering_wheel_controller_c::get_button(buttons button){
     switch (button) {
         case buttons::button_a:
-            return button1.read();
+            return !button1.read();
         case buttons::button_b:
-            return button2.read();
+            return !button2.read();
         case buttons::button_x:
-            return button3.read();
+            return !button3.read();
         case buttons::button_y:
-            return button4.read();
+            return !button4.read();
         default:
             return 0;
     }
@@ -55,11 +55,17 @@ joystick_value_s r2d2::manual_control::steering_wheel_controller_c::get_joystick
 }
 
 int r2d2::manual_control::steering_wheel_controller_c::get_steering_wheel(){
-    // 266 is min range wheel, 3870 is max range wheel. Gives output between
-    // 90 and -90. plus two is adjusting range (came up while testing)
+    // Read the steering wheel
     int wheel_degrees = steering_wheel.read();
 
+    // 266 is min range wheel, 3870 is max range wheel. Gives output between
+    // 90 and -90. plus two is adjusting range (came up while testing)
     wheel_degrees = ((wheel_degrees - 266) * 180 / (3870 - 266) - 90) + 2;
+
+    // Inverse so the left is negative and the right is positive
+    wheel_degrees = -1 * wheel_degrees;
+
+
     if (wheel_degrees < 5 && wheel_degrees > -5) {
         return 0;
     } else if (wheel_degrees > 90) {
@@ -72,8 +78,7 @@ int r2d2::manual_control::steering_wheel_controller_c::get_steering_wheel(){
 }
 
 int r2d2::manual_control::steering_wheel_controller_c::get_pedals(){
-    // 254 is min range pedal, 4051 is max range pedal. Gives output between
-    // 100 and -100.
+    // 254 is min range pedal, 4051 is max range pedal. Gives output between 100 and -100.
     int pedal_percentage = pedals.read();
 
     pedal_percentage = ((pedal_percentage - 264) * 200 / (4051 - 264) - 100);
@@ -86,13 +91,4 @@ int r2d2::manual_control::steering_wheel_controller_c::get_pedals(){
     } else {
         return pedal_percentage;
     }
-}
-
-void r2d2::manual_control::steering_wheel_controller_c::print() {
-//    hwlib::cout << "B1: " << get_button(0) << "| B2: " << get_button(1)
-//                << "| B3: " << get_button(2) << "| B4: " << get_button(3)
-//                << "\n";
-//
-//    hwlib::cout << "wheel: " << get_slider(0) << " | pedals: " << get_slider(1)
-//                << "\n";
 }
