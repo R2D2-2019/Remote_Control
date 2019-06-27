@@ -1,6 +1,6 @@
 #include "../headers/steering_wheel_controller.hpp"
 
-r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(int controller_id, hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3, hwlib::target::pin_in &button4, hwlib::target::pin_adc &steering_wheel, hwlib::target::pin_adc &pedals)
+r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(int controller_id, hwlib::pin_in &button1, hwlib::pin_in &button2, hwlib::pin_in &button3, hwlib::pin_in &button4, hwlib::adc &steering_wheel, hwlib::adc &pedals)
         : controller_interface_c(controller_id), button1(button1), button2(button2), button3(button3), button4(button4), steering_wheel(steering_wheel), pedals(pedals) 
         {}
 
