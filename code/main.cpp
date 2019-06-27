@@ -11,16 +11,15 @@ int main(void) {
     hwlib::cout << "starting up.../n";
     hwlib::wait_ms(1000);
 
-    auto button1 = hwlib::pin_in(hwlib::pins::d2);
-    auto button2 = hwlib::pin_in(hwlib::pins::d3);
-    auto button3 = hwlib::pin_in(hwlib::pins::d4);
-    auto button4 = hwlib::pin_in(hwlib::pins::d5);
-    auto wheel = hwlib::adc(hwlib::ad_pins::a0);
-    auto pedals = hwlib::adc(hwlib::ad_pins::a1);
+    auto button1 = hwlib::target::pin_in(hwlib::target::pins::d2);
+    auto button2 = hwlib::target::pin_in(hwlib::target::pins::d3);
+    auto button3 = hwlib::target::pin_in(hwlib::target::pins::d4);
+    auto button4 = hwlib::target::pin_in(hwlib::target::pins::d5);
+    auto wheel = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
+    auto pedals = hwlib::target::pin_adc(hwlib::target::ad_pins::a1);
 
     auto test = r2d2::manual_control::steering_wheel_controller_c(1, button1, button2, button3,
                                                     button4, wheel, pedals);
-
 
     r2d2::comm_c comm;
     r2d2::manual_control::module_c controller(comm, test);
