@@ -24,6 +24,7 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
         // The pedals
         hwlib::target::pin_adc &pedals;
 
+
         /**
          * This function overrides the read() function of pin_in
          * and reads the data of a pin_in.
@@ -57,7 +58,7 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
          * @param wheel The adc input that reads the data of the potmeter.
          * @param pedals The adc input that reads the data of the potmeter.
          */
-        steering_wheel_controller_c(hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3,
+        steering_wheel_controller_c(int controller_id, hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3,
                                     hwlib::target::pin_in &button4, hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals);
 
         /**
@@ -84,7 +85,7 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
          * @param joystick
          * @return
          */
-        virtual joystick_value_s get_joystick(joysticks joystick);
+        virtual joystick_value_c get_joystick(joysticks joystick);
 
         /**
          * This function is for testing/reading

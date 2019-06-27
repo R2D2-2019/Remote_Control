@@ -1,9 +1,8 @@
 #include "../headers/steering_wheel_controller.hpp"
 
-r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c( hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3, hwlib::target::pin_in &button4, hwlib::target::pin_adc &steering_wheel, hwlib::target::pin_adc &pedals)
-        : button1(button1), button2(button2), button3(button3), button4(button4), steering_wheel(steering_wheel), pedals(pedals) {
-
-    }
+r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(int controller_id, hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3, hwlib::target::pin_in &button4, hwlib::target::pin_adc &steering_wheel, hwlib::target::pin_adc &pedals)
+        : controller_interface_c(controller_id), button1(button1), button2(button2), button3(button3), button4(button4), steering_wheel(steering_wheel), pedals(pedals) 
+        {}
 
 bool r2d2::manual_control::steering_wheel_controller_c::read() {
     this->refresh();
@@ -17,13 +16,13 @@ unsigned char r2d2::manual_control::steering_wheel_controller_c::get_slider(slid
             if(get_pedals() > 0){
                 return 0;
             }else{
-                return get_pedals();
+                return get_pedals() * -1;
             }
         case sliders::slider_r:
             if(get_pedals() < 0){
                 return 0;
             }else{
-                return get_pedals() * -1;
+                return get_pedals();
             }
         default:
             return 0;
@@ -45,7 +44,7 @@ bool r2d2::manual_control::steering_wheel_controller_c::get_button(buttons butto
     }
 }
 
-joystick_value_s r2d2::manual_control::steering_wheel_controller_c::get_joystick(joysticks joystick){
+joystick_value_c r2d2::manual_control::steering_wheel_controller_c::get_joystick(joysticks joystick){
     switch (joystick){
         case joysticks::joystick_l:
             return {get_steering_wheel(), 0};
