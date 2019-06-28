@@ -4,7 +4,6 @@
 #include "joystick_value.hpp"
 #include <hwlib.hpp>
 
-
 namespace r2d2::manual_control {
 
     /**
@@ -15,16 +14,16 @@ namespace r2d2::manual_control {
                                         public controller_interface_c {
     private:
         // Button on the steering wheel
-        hwlib::target::pin_in &button1;
-        hwlib::target::pin_in &button2;
-        hwlib::target::pin_in &button3;
-        hwlib::target::pin_in &button4;
+        hwlib::pin_in &button1;
+        hwlib::pin_in &button2;
+        hwlib::pin_in &button3;
+        hwlib::pin_in &button4;
 
         // The steering wheel itself
-        hwlib::target::pin_adc &steering_wheel;
+        hwlib::adc &steering_wheel;
 
         // The pedals
-        hwlib::target::pin_adc &pedals;
+        hwlib::adc &pedals;
 
         /**
          * This function overrides the read() function of pin_in
@@ -59,13 +58,11 @@ namespace r2d2::manual_control {
          * @param wheel The adc input that reads the data of the potmeter.
          * @param pedals The adc input that reads the data of the potmeter.
          */
-        steering_wheel_controller_c(int controller_id,
-                                    hwlib::target::pin_in &button1,
-                                    hwlib::target::pin_in &button2,
-                                    hwlib::target::pin_in &button3,
-                                    hwlib::target::pin_in &button4,
-                                    hwlib::target::pin_adc &wheel,
-                                    hwlib::target::pin_adc &pedals);
+        steering_wheel_controller_c(int controller_id, hwlib::pin_in &button1,
+                                    hwlib::pin_in &button2,
+                                    hwlib::pin_in &button3,
+                                    hwlib::pin_in &button4, hwlib::adc &wheel,
+                                    hwlib::adc &pedals);
 
         /**
          * This function gets the data of a button.
