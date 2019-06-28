@@ -155,7 +155,7 @@ namespace r2d2::manual_control {
         /// Get the controller capabilities.
         /// \details
         /// This function returns the controller capabilities.
-        virtual Capabilities getCapabilities(){
+        Capabilities getCapabilities(){
             return capabilities;
         }
 
