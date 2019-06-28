@@ -32,10 +32,10 @@ namespace r2d2::manual_control {
     class controller_interface_c {
     public:
         int controller_id;
-        
-        controller_interface_c(int controller_id):
-        controller_id(controller_id)
-        {}
+
+        controller_interface_c(int controller_id)
+            : controller_id(controller_id) {
+        }
 
         /**
          * @brief Get a button value from the controller
