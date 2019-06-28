@@ -21,18 +21,19 @@ bool r2d2::manual_control::steering_wheel_controller_c::read() {
 
 unsigned char
 r2d2::manual_control::steering_wheel_controller_c::get_slider(sliders slider) {
+    int pedalsvalue = get_pedals();
     switch (slider) {
     case sliders::slider_l:
-        if (get_pedals() > 0) {
+        if (pedalsvalue > 0) {
             return 0;
         } else {
-            return get_pedals() * -1;
+            return pedalsvalue * -1;
         }
     case sliders::slider_r:
-        if (get_pedals() < 0) {
+        if (pedalsvalue < 0) {
             return 0;
         } else {
-            return get_pedals();
+            return pedalsvalue;
         }
     default:
         return 0;
@@ -94,7 +95,8 @@ int r2d2::manual_control::steering_wheel_controller_c::get_pedals() {
     int pedal_percentage = pedals.read();
 
     pedal_percentage = ((pedal_percentage - 264) * 200 / (4051 - 264) - 100);
-    if (pedal_percentage > -13 && pedal_percentage < 13) {
+    // 15 is deadzone
+    if (pedal_percentage > -15 && pedal_percentage < 15) {
         return 0;
     } else if (pedal_percentage > 100) {
         return 100;
