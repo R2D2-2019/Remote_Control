@@ -26,6 +26,7 @@ namespace r2d2::manual_control {
         /// The controller state.
         /// \details
         /// This struct stores the state of the controller. The state holds al buttons and axes.
+        /// Axes have a range of -127 to 127.
         struct State {
             uint16_t mButtons;  // holds the button states. Each bit corresponds to a button state
             int8_t mEAxesLY;    // Holds the EAxesLY
