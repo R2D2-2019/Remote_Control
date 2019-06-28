@@ -38,7 +38,7 @@ namespace r2d2::manual_control {
 
     protected:
 
-        Capabilities capabilities = {4, 0, 0, 1, 1, 1, 1}; // default capabillities
+        Capabilities capabilities; // default capabillities
 
         State state = {0, 0, 0, 0, 0, 0, 0}; // default state
 
@@ -48,7 +48,17 @@ namespace r2d2::manual_control {
         /// Manualcontrol constructor.
         /// \details
         /// This is the constructor for manual control. 
-        manualControl_c manualcontrol();
+        manualControl_c(
+            int8_t buttonCount = 4, 
+            bool EAxesLY = 0, 
+            bool EAxesRX = 0, 
+            bool AxesLX = 1,  
+            bool AxesLY = 1, 
+            bool AxesRX = 1, 
+            bool setAxesRY = 1
+        ):
+            capabilities{4, 0, 0, 1, 1, 1, 1}
+        {}
 
 
         /// \brief   
@@ -139,20 +149,6 @@ namespace r2d2::manual_control {
         void setAxesRY(int8_t axes){
             state.mAxesRY = axes;
         }
-
-        /// \brief   
-        /// Set controller capabilities.
-        /// \details
-        /// This function sets the capabilities for the controller.
-        void setCapabilities(
-            int8_t buttonCount = 4, 
-            bool EAxesLY = 0, 
-            bool EAxesRX = 0, 
-            bool AxesLX = 1,  
-            bool AxesLY = 1, 
-            bool AxesRX = 1, 
-            bool setAxesRY = 1
-        );
 
         /// \brief   
         /// Get the controller capabilities.
