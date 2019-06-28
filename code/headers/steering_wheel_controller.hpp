@@ -1,8 +1,9 @@
 #pragma once
 
-#include <hwlib.hpp>
-#include "joystick_value.hpp"
 #include "controller_interface.hpp"
+#include "joystick_value.hpp"
+#include <hwlib.hpp>
+
 
 namespace r2d2::manual_control {
 
@@ -10,7 +11,8 @@ namespace r2d2::manual_control {
      * Class steering_wheel_controller_c provides functions
      * for reading the data of the trust steering wheel.
      */
-class steering_wheel_controller_c : public hwlib::pin_in,  public controller_interface_c {
+    class steering_wheel_controller_c : public hwlib::pin_in,
+                                        public controller_interface_c {
     private:
         // Button on the steering wheel
         hwlib::target::pin_in &button1;
@@ -23,7 +25,6 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
 
         // The pedals
         hwlib::target::pin_adc &pedals;
-
 
         /**
          * This function overrides the read() function of pin_in
@@ -48,7 +49,7 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
         int get_pedals();
 
     public:
-         /**
+        /**
          * Instantiate the steering wheel controller class
          *
          * @param button1 The digital input that reads the button state.
@@ -58,8 +59,13 @@ class steering_wheel_controller_c : public hwlib::pin_in,  public controller_int
          * @param wheel The adc input that reads the data of the potmeter.
          * @param pedals The adc input that reads the data of the potmeter.
          */
-        steering_wheel_controller_c(int controller_id, hwlib::target::pin_in &button1, hwlib::target::pin_in &button2, hwlib::target::pin_in &button3,
-                                    hwlib::target::pin_in &button4, hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals);
+        steering_wheel_controller_c(int controller_id,
+                                    hwlib::target::pin_in &button1,
+                                    hwlib::target::pin_in &button2,
+                                    hwlib::target::pin_in &button3,
+                                    hwlib::target::pin_in &button4,
+                                    hwlib::target::pin_adc &wheel,
+                                    hwlib::target::pin_adc &pedals);
 
         /**
          * This function gets the data of a button.

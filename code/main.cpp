@@ -1,8 +1,9 @@
+#include <comm.hpp>
 #include <dummy_controller.hpp>
 #include <hwlib.hpp>
 #include <manual_control.hpp>
-#include <comm.hpp>
 #include <steering_wheel_controller.hpp>
+
 
 int main(void) {
     // kill the watchdog
@@ -18,18 +19,15 @@ int main(void) {
     auto wheel = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
     auto pedals = hwlib::target::pin_adc(hwlib::target::ad_pins::a1);
 
-    auto test = r2d2::manual_control::steering_wheel_controller_c(1, button1, button2, button3,
-                                                    button4, wheel, pedals);
-
+    auto test = r2d2::manual_control::steering_wheel_controller_c(
+        1, button1, button2, button3, button4, wheel, pedals);
 
     r2d2::comm_c comm;
     r2d2::manual_control::module_c controller(comm, test);
 
-    
-    for(;;){
+    for (;;) {
         controller.process();
 
         hwlib::wait_ms(10);
     }
-
 }
