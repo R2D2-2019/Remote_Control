@@ -69,25 +69,25 @@ namespace r2d2::manual_control {
             if (abs(slider_list[slider_l] - slider_left) >= 5){                 
                 slider_list[slider_l] = slider_left;
                 // put slider frame on canbus. 
-                hwlib::cout << "slider_l changed" << slider_list[slider_l] << "\n";
+                //hwlib::cout << "slider_l changed" << slider_list[slider_l] << "\n";
 
                 slider_state.controller_id = controller.controller_id;
                 slider_state.slider_id = slider_l;
                 slider_state.value = slider_left;
                 comm.send(slider_state);
-                hwlib::cout << " should be send\n";
+                //hwlib::cout << " should be send\n";
             }
                 //check if slider_r changed more then 5 (so canbus is not spammed)
             if (abs(slider_list[slider_r] - slider_right) >= 5){                
                 slider_list[slider_r] = slider_right;
                 // put slider frame on canbus. 
-                hwlib::cout << "slider_r changed: " << slider_list[slider_r] << "\n";
+                //hwlib::cout << "slider_r changed: " << slider_list[slider_r] << "\n";
 
                 slider_state.controller_id = controller.controller_id;
-                slider_state.slider_id = slider_l;
+                slider_state.slider_id = slider_r;
                 slider_state.value = slider_right;
                 comm.send(slider_state);
-                hwlib::cout << " should be send\n";
+                //hwlib::cout << " should be send\n";
             }
             
                 //handle joysticks
@@ -98,28 +98,28 @@ namespace r2d2::manual_control {
             if (abs(joystick_list[joystick_l] - joystick_left) >= 5){
                 joystick_list[joystick_l] = joystick_left;
                 // put joystick frame on canbus. 
-                hwlib::cout << "joystick_l changed: " << joystick_list[joystick_l].x << " " << joystick_list[joystick_l].y << "\n";
+                //hwlib::cout << "joystick_l changed: " << joystick_list[joystick_l].x << " " << joystick_list[joystick_l].y << "\n";
 
                 joystick_state.controller_id = controller.controller_id;
                 joystick_state.joystick_id = joystick_l;
                 joystick_state.value_x = joystick_left.x;
                 joystick_state.value_y = joystick_left.y;
                 comm.send(joystick_state);
-                hwlib::cout << " should be send\n";
+                //hwlib::cout << " should be send\n";
             }
            
                 //check if joystick_r changed more then 5 (so canbus is not spammed)
             if (abs(joystick_list[joystick_r] - joystick_right) >= 5){
                 joystick_list[joystick_r] = joystick_right;
                 // put joystick frame on canbus. 
-                hwlib::cout << "joystick_r changed: " << joystick_list[joystick_r].x << " " << joystick_list[joystick_r].y << "\n";
+                //hwlib::cout << "joystick_r changed: " << joystick_list[joystick_r].x << " " << joystick_list[joystick_r].y << "\n";
 
                 joystick_state.controller_id = controller.controller_id;
                 joystick_state.joystick_id = joystick_l;
                 joystick_state.value_x = joystick_right.x;
                 joystick_state.value_y = joystick_right.y;
                 comm.send(joystick_state);
-                hwlib::cout << " should be send\n";
+                //hwlib::cout << " should be send\n";
             }
 
 
