@@ -83,14 +83,17 @@ namespace r2d2::manual_control {
                 controller.get_slider(r2d2::manual_control::slider_l);
             auto slider_right =
                 controller.get_slider(r2d2::manual_control::slider_r);
-            
+
             // check if slider_l changed more then 5 (so canbus is not spammed)
-            // sometimes it give a random 243, with 100 < weird positive numbers can be prevented
-            if (abs(slider_list[slider_l] - slider_left) >= 5 && slider_left < 100) {
-            
+            // sometimes it give a random 243, with 100 < weird positive numbers
+            // can be prevented
+            if (abs(slider_list[slider_l] - slider_left) >= 5 &&
+                slider_left < 100) {
+
                 slider_list[slider_l] = slider_left;
-                // put slider frame on canbus. 
-                //hwlib::cout << "slider_l changed" << slider_list[slider_l] << "\n";
+                // put slider frame on canbus.
+                // hwlib::cout << "slider_l changed" << slider_list[slider_l] <<
+                // "\n";
 
                 // fill slider_state frame
                 slider_state.controller_id = controller.controller_id;

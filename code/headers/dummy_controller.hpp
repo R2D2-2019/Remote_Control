@@ -11,11 +11,8 @@ namespace r2d2::manual_control {
         joystick_value_c joysticks[2] = {};
 
     public:
-
-        dummy_controller_c(int controller_id):
-            controller_interface_c(controller_id)
-        {
-
+        dummy_controller_c(int controller_id)
+            : controller_interface_c(controller_id) {
         }
         /**
          * @brief Get a button value from the controller
