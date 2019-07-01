@@ -6,9 +6,10 @@ namespace r2d2::manual_control {
     class dummy_controller_c : public controller_interface_c {
     private:
         // initializing all buttons, sliders and joysticks at their base (0)
-        bool buttons[12] = {};
         unsigned char sliders[2] = {};
-        joystick_value_c joysticks[2] = {};
+
+        std::array<bool, 12> buttons;
+        std::array<joystick_value_s, 2> joysticks;
 
     public:
         dummy_controller_c(int controller_id)
@@ -32,9 +33,9 @@ namespace r2d2::manual_control {
          * @brief Get a joystick value from the controller. This returns a
          * struct.
          *
-         * @return joystick_value_c
+         * @return joystick_value_s
          */
-        joystick_value_c get_joystick(r2d2::manual_control::joysticks joystick);
+        joystick_value_s get_joystick(r2d2::manual_control::joysticks joystick);
 
         /**
          * @brief Set a button value.
@@ -61,7 +62,7 @@ namespace r2d2::manual_control {
          * @param joystick_state new joystick value
          */
         void set_joystick(r2d2::manual_control::joysticks joystick,
-                          joystick_value_c joystick_state);
+                          joystick_value_s joystick_state);
     };
 
 } // namespace r2d2::manual_control

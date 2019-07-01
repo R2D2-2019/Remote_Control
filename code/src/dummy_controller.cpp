@@ -10,7 +10,7 @@ unsigned char r2d2::manual_control::dummy_controller_c::get_slider(
     r2d2::manual_control::sliders slider) {
     return sliders[slider];
 };
-joystick_value_c r2d2::manual_control::dummy_controller_c::get_joystick(
+joystick_value_s r2d2::manual_control::dummy_controller_c::get_joystick(
     r2d2::manual_control::joysticks joystick) {
     return joysticks[joystick];
 };
@@ -25,6 +25,6 @@ void r2d2::manual_control::dummy_controller_c::set_slider(
     sliders[slider] = slider_state;
 };
 void r2d2::manual_control::dummy_controller_c::set_joystick(
-    r2d2::manual_control::joysticks joystick, joystick_value_c joystick_state) {
+    r2d2::manual_control::joysticks joystick, joystick_value_s joystick_state) {
     joysticks[joystick] = joystick_state;
 };

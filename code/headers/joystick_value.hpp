@@ -1,45 +1,26 @@
 #pragma once
 #include <hwlib.hpp>
 
-class joystick_value_c {
+struct joystick_value_s {
 public:
     int x;
     int y;
 
-    // operators
-    bool operator!=(const joystick_value_c &rhs) {
-        return ((this->x != rhs.x) || (this->y != rhs.y));
-    }
+    bool operator!=(const joystick_value_s &rhs);
 
-    joystick_value_c operator-(const joystick_value_c &rhs) {
-        return {this->x - rhs.x, this->y - rhs.y};
-    }
+    joystick_value_s operator-(const joystick_value_s &rhs);
 
-    joystick_value_c operator-(const int &rhs) {
-        return {this->x - rhs, this->y - rhs};
-    }
+    joystick_value_s operator-(const int &rhs);
 
-    joystick_value_c operator+(const joystick_value_c &rhs) {
-        return {this->x + rhs.x, this->y + rhs.y};
-    }
+    joystick_value_s operator+(const joystick_value_s &rhs);
 
-    joystick_value_c operator+(const int &rhs) {
-        return {this->x + rhs, this->y + rhs};
-    }
+    joystick_value_s operator+(const int &rhs);
 
-    bool operator>=(const int &rhs) {
-        return (this->x >= rhs || this->y >= rhs);
-    }
+    bool operator>=(const int &rhs);
 
-    bool operator>(const joystick_value_c &rhs) {
-        return (this->x > rhs.x || this->y > rhs.y);
-    }
+    bool operator>(const joystick_value_s &rhs);
 
-    bool operator<(const joystick_value_c &rhs) {
-        return (this->x < rhs.x || this->y < rhs.y);
-    }
+    bool operator<(const joystick_value_s &rhs);
 
-    bool operator<=(const int &rhs) {
-        return (this->x <= rhs || this->y <= rhs);
-    }
+    bool operator<=(const int &rhs);
 };

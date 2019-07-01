@@ -1,6 +1,8 @@
 #include "../headers/steering_wheel_controller.hpp"
 
-r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(
+using namespace r2d2::manual_control;
+
+steering_wheel_controller_c::steering_wheel_controller_c(
     int controller_id, hwlib::pin_in &button1, hwlib::pin_in &button2,
     hwlib::pin_in &button3, hwlib::pin_in &button4, hwlib::adc &steering_wheel,
     hwlib::adc &pedals)
@@ -13,35 +15,35 @@ r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(
       pedals(pedals) {
 }
 
-bool r2d2::manual_control::steering_wheel_controller_c::read() {
+bool steering_wheel_controller_c::read() {
     this->refresh();
 
     return false;
 }
 
 unsigned char
-r2d2::manual_control::steering_wheel_controller_c::get_slider(sliders slider) {
+steering_wheel_controller_c::get_slider(sliders slider) {
     int pedalsvalue = get_pedals();
-    switch (slider) {
-    case sliders::slider_l:
+
+    if(slider == sliders::slider_l){
         if (pedalsvalue > 0) {
             return 0;
         } else {
             return pedalsvalue * -1;
         }
-    case sliders::slider_r:
+    }else if(slider ==  sliders::slider_r){
         if (pedalsvalue < 0) {
             return 0;
         } else {
             return pedalsvalue;
         }
-    default:
+    }else{
         return 0;
     }
 }
 
-bool r2d2::manual_control::steering_wheel_controller_c::get_button(
-    buttons button) {
+bool steering_wheel_controller_c::get_button(buttons button) {
+
     switch (button) {
     case buttons::button_a:
         return !button1.read();
@@ -56,18 +58,17 @@ bool r2d2::manual_control::steering_wheel_controller_c::get_button(
     }
 }
 
-joystick_value_c
-r2d2::manual_control::steering_wheel_controller_c::get_joystick(
-    joysticks joystick) {
-    switch (joystick) {
-    case joysticks::joystick_l:
+joystick_value_s
+steering_wheel_controller_c::get_joystick(joysticks joystick) {
+
+    if(joystick == joysticks::joystick_l){
         return {get_steering_wheel(), 0};
-    default:
+    }else{
         return {0, 0};
     }
 }
 
-int r2d2::manual_control::steering_wheel_controller_c::get_steering_wheel() {
+int steering_wheel_controller_c::get_steering_wheel() {
     // Read the steering wheel
     int wheel_degrees = steering_wheel.read();
 
@@ -89,12 +90,14 @@ int r2d2::manual_control::steering_wheel_controller_c::get_steering_wheel() {
     }
 }
 
-int r2d2::manual_control::steering_wheel_controller_c::get_pedals() {
-    // 254 is min range pedal, 4051 is max range pedal. Gives output between 100
-    // and -100.
+int steering_wheel_controller_c::get_pedals() {
+    // Read the pedals
     int pedal_percentage = pedals.read();
 
+    // 254 is min range pedal, 4051 is max range pedal. Gives output between 100
+    // and -100.
     pedal_percentage = ((pedal_percentage - 264) * 200 / (4051 - 264) - 100);
+
     // 15 is deadzone
     if (pedal_percentage > -15 && pedal_percentage < 15) {
         return 0;

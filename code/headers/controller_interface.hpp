@@ -31,7 +31,7 @@ namespace r2d2::manual_control {
      */
     class controller_interface_c {
     public:
-        int controller_id;
+        uint8_t controller_id;
 
         controller_interface_c(int controller_id)
             : controller_id(controller_id) {
@@ -55,9 +55,9 @@ namespace r2d2::manual_control {
          * @brief Get a joystick value from the controller. This returns a
          * struct.
          *
-         * @return joystick_value_c
+         * @return joystick_value_s
          */
-        virtual joystick_value_c get_joystick(joysticks joystick) = 0;
+        virtual joystick_value_s get_joystick(joysticks joystick) = 0;
     };
 
 } // namespace r2d2::manual_control

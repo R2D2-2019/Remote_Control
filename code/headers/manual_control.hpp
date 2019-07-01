@@ -1,18 +1,35 @@
+#pragma once
+
 #include <base_module.hpp>
 #include <controller_interface.hpp>
 
 namespace r2d2::manual_control {
     class module_c : public base_module_c {
     private:
+
+        r2d2::manual_control::controller_interface_c &controller;
+
+        // lists to save previous states of buttons, sliders and joysticks
+        unsigned char slider_list[2] = {};
+
+        std::array<joystick_value_s, 2> joystick_list;
+        std::array<bool, 12> button_list;
+
+        // canbus frames
+        frame_manual_control_button_s button_state;
+        frame_manual_control_slider_s slider_state;
+        frame_manual_control_joystick_s joystick_state;
+
+
         /**
          *  \brief
-         *  This function returns the ablosule of a joystick_value_c
+         *  This function returns the absolute of a joystick_value_s
          *
          *  \details
-         *  This function takes the values from a joystick_value_c and makes
+         *  This function takes the values from a joystick_value_s and makes
          * every value positive
          */
-        joystick_value_c abs(joystick_value_c value) {
+        joystick_value_s abs(joystick_value_s value) {
             if (value.x < 0) {
                 value.x *= -1;
             }
@@ -34,18 +51,6 @@ namespace r2d2::manual_control {
             }
             return value;
         }
-
-        r2d2::manual_control::controller_interface_c &controller;
-
-        // lists to save previous states of buttons, sliders and joysticks
-        bool button_list[12] = {};
-        unsigned char slider_list[2] = {};
-        joystick_value_c joystick_list[2] = {};
-
-        // canbus frames
-        frame_manual_control_button_s button_state;
-        frame_manual_control_slider_s slider_state;
-        frame_manual_control_joystick_s joystick_state;
 
     public:
         /**

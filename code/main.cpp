@@ -9,8 +9,6 @@ int main(void) {
     // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
     hwlib::wait_ms(1000);
-    hwlib::cout << "starting up.../n";
-    hwlib::wait_ms(1000);
 
     auto button1 = hwlib::target::pin_in(hwlib::target::pins::d2);
     auto button2 = hwlib::target::pin_in(hwlib::target::pins::d3);

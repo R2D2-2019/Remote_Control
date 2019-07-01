@@ -88,7 +88,7 @@ namespace r2d2::manual_control {
          * @param joystick
          * @return
          */
-        virtual joystick_value_c get_joystick(joysticks joystick);
+        virtual joystick_value_s get_joystick(joysticks joystick);
 
         /**
          * This function is for testing/reading
