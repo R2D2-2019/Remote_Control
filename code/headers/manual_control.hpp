@@ -54,7 +54,10 @@ namespace r2d2::manual_control {
 
     public:
         /**
-         * @param comm
+         * \brief
+         * Constructor of the manual_control module
+         *
+         * @param comm the canbus to post frames to
          */
         module_c(base_comm_c &comm,
                  r2d2::manual_control::controller_interface_c &controller)
@@ -62,7 +65,9 @@ namespace r2d2::manual_control {
         }
 
         /**
-         * Let the module process data.
+         * \brief
+         * The process functionaly of this module
+         *
          */
         void process() override {
             for (int x = button_a; x <= menu_right; x++) {
