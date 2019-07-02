@@ -4,6 +4,12 @@
 namespace r2d2::manual_control {
 
     class serial_controller_c : public controller_interface_c {
+    private:
+        // initializing all buttons, sliders and joysticks at their base (0)
+        unsigned char sliders_state[2] = {};
+
+        std::array<bool, 4> buttons_state;
+        std::array<joystick_value_s, 2> joysticks_state;
 
     public:
         serial_controller_c(int controller_id)
