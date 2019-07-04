@@ -6,11 +6,10 @@
 namespace r2d2::manual_control {
     class module_c : public base_module_c {
     private:
-
         r2d2::manual_control::controller_interface_c &controller;
 
         // lists to save previous states of buttons, sliders and joysticks
-        unsigned char slider_list[2] = {};
+        std::array<unsigned char, 2> slider_list;
 
         std::array<joystick_value_s, 2> joystick_list;
         std::array<bool, 12> button_list;
@@ -19,7 +18,6 @@ namespace r2d2::manual_control {
         frame_manual_control_button_s button_state;
         frame_manual_control_slider_s slider_state;
         frame_manual_control_joystick_s joystick_state;
-
 
         /**
          *  \brief

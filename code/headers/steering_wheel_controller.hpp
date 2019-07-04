@@ -1,8 +1,9 @@
 #pragma once
 
-#include "controller_interface.hpp"
-#include "joystick_value.hpp"
+#include <controller_interface.hpp>
 #include <hwlib.hpp>
+#include <joystick_value.hpp>
+
 
 namespace r2d2::manual_control {
 
