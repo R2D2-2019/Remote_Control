@@ -161,6 +161,8 @@ namespace r2d2::manual_control {
                 // put joystick frame on canbus
                 comm.send(joystick_state);
             }
+            auto led = hwlib::target::pin_out(hwlib::target::pins::d13);
+            led.write((controller.get_joystick(joysticks::joystick_l).x > 30));
         }
     };
 } // namespace r2d2::manual_control

@@ -57,7 +57,7 @@ joystick_value_s serial_controller_c::get_joystick(joysticks joystick){
             break;
     }
 
-    return {0,0};
+    return joystick_value;
 };
 
 void serial_controller_c::refresh(){
@@ -66,10 +66,21 @@ void serial_controller_c::refresh(){
     if(hwlib::cin.char_available()){
         controller_state = hwlib::cin.getc();
 
-        joysticks_state[0].x = (controller_state & 1)? -100 : 0; // Left
-        joysticks_state[0].x = (controller_state & 2)? 100 : 0; // Right
-        sliders_state[1] = (controller_state & 4)? 128 : 0; // Up
-        sliders_state[0] = (controller_state & 8)? 128 : 0; //Down
+        if(controller_state & 1){
+            joysticks_state[0].x = -90;
+            sliders_state[1] = 20;
+        }else{
+            joysticks_state[0].x = 0;
+            sliders_state[1] = 0;
+        }
+
+        if(controller_state & 2){
+            joysticks_state[0].x = 90;
+            sliders_state[1] = 20;
+        }
+
+        sliders_state[1] = (controller_state & 4)? 30 : 0; // Up
+        sliders_state[0] = (controller_state & 8)? 30 : 0; //Down
         buttons_state[0] = (controller_state & 16); // Button_A
         buttons_state[1] = (controller_state & 32); // Button_B
         buttons_state[2] = (controller_state & 64); // Button_X
