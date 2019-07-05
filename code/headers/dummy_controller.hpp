@@ -6,11 +6,15 @@ namespace r2d2::manual_control {
     class dummy_controller_c : public controller_interface_c {
     private:
         // initializing all buttons, sliders and joysticks at their base (0)
-        bool buttons[12] = {};
         unsigned char sliders[2] = {};
-        joystick_value_s joysticks[2] = {};
+
+        std::array<bool, 12> buttons;
+        std::array<joystick_value_s, 2> joysticks;
 
     public:
+        dummy_controller_c(int controller_id)
+            : controller_interface_c(controller_id) {
+        }
         /**
          * @brief Get a button value from the controller
          *
