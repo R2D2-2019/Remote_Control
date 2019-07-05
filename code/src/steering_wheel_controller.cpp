@@ -6,16 +6,10 @@ r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(
     hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals
     
 ): 
-    manualControl_c(4, 0, 0, 1, 1, 1, 1),
+    manualControl_c(4, 0, 0, 1, 0, 1, 1),
     buttons{&button1, &button2, &button3, &button4},
     sliders{&wheel, &pedals}
 {}
-
-// bool r2d2::manual_control::steering_wheel_controller_c::read() {
-//     this->refresh();
-
-//     return false;
-// }
 
 int8_t r2d2::manual_control::steering_wheel_controller_c::get_slider(
     const int &slider) {
@@ -65,18 +59,49 @@ void r2d2::manual_control::steering_wheel_controller_c::print() {
                 << "\n";
 }
 
-r2d2::manual_control::manualControl_c::State r2d2::manual_control::steering_wheel_controller_c::getState(){
-    //not sure if these buttons are linked correctly
-    setButton(0, get_button(0));
-    setButton(1, get_button(1));
-    setButton(2, get_button(2));
-    setButton(3, get_button(3));
+r2d2::manual_control::state_s r2d2::manual_control::steering_wheel_controller_c::get_state(){
+    set_button(0, !buttons[0]->read());
+    set_button(1, !buttons[1]->read());
+    set_button(2, !buttons[2]->read());
+    set_button(3, !buttons[3]->read());
 
-    // not sure if these sliders are linked correctly and if they need a conversion to fit whitin to -127 to 127
-    state.mAxesLX = get_slider(0);
-    state.mAxesLY = get_slider(1);
-    state.mAxesRX = get_slider(2);
-    state.mAxesRY = get_slider(3);
+    float wheel_axes = get_slider(0);
+    if(wheel_axes > 0){
+        wheel_axes /= 80;
+        wheel_axes *= -127;
+        if(wheel_axes < -127){
+            wheel_axes = -127;
+        }
+
+    } else if(wheel_axes < 0) {
+        wheel_axes /= 100;
+        wheel_axes *= -127;
+        if(wheel_axes > 127){
+            wheel_axes = 127;
+        }
+    }
+    set_axes_lx(wheel_axes);
+
+    float thrust = get_slider(1);
+    if(thrust > 0){
+        thrust = (float(get_slider(1))/91.0)*127; //convert to 0-127 range
+        if(thrust > 127  || thrust < 0){
+            thrust = 127;
+        }
+        set_axes_rx(int8_t(thrust));
+        set_axes_ry(0);
+
+    } else if(thrust < 0){
+        thrust = (float(get_slider(1) * -1)/100.0)*127; //convert to 0-127 range
+        if(thrust > 127 || thrust < 0){
+            thrust = 127;
+        }
+        set_axes_rx(0);
+        set_axes_ry(int8_t(thrust));
+    } else {
+        set_axes_rx(0);
+        set_axes_ry(0);
+    }
+    return m_state;
     
-    return state;
 }

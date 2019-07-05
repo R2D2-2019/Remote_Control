@@ -29,8 +29,10 @@ int main(void) {
 
     manual_control::module_c module(comm, steering_wheel_controller);
 
-    for (;;) {
-        //steering_wheel_controller.print();
+
+
+    for (;;) {        
+        hwlib::cout << steering_wheel_controller.get_state() << hwlib::endl;
         module.process();
         hwlib::wait_ms(100);
     }

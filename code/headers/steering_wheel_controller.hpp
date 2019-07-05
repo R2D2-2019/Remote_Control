@@ -18,7 +18,7 @@ namespace r2d2::manual_control {
     public:
         /**
          * Instantiate the steering wheel controller class
-         * 
+         *
          * @param button1 The digital input that reads the button state.
          * @param button2 The digital input that reads the button state.
          * @param button3 The digital input that reads the button state.
@@ -36,10 +36,10 @@ namespace r2d2::manual_control {
         /**
          * This function overrides the read() function of pin_in
          * and reads the data of a pin_in.
-         * 
+         *
          * @internal refreshes/reads the incoming data.
          */
-        //bool read() override;
+        // bool read() override;
 
         /**
          * This function gets the data of a slider
@@ -65,6 +65,14 @@ namespace r2d2::manual_control {
          */
         void print();
 
-        State getState() override;
+        /**
+         * \brief
+         * override function of get state.
+         * \detailed
+         * This overrides the get_state function so that the state first gets
+         * set and than returned.
+         * @return state_s m_state - the state of the controller.
+         */
+        state_s get_state() override;
     };
 } // namespace r2d2::manual_control

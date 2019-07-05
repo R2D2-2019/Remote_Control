@@ -50,8 +50,11 @@ namespace r2d2::manual_control {
                 frame_manual_control_s movement_state;
 
                 movement_state.brake = steering_wheel.get_button(2);
+                movement_state.brake = steering_wheel.get_button(2);
                 movement_state.rotation = steering_wheel.get_slider(0);
                 movement_state.speed = steering_wheel.get_slider(1);
+
+                
 
 
                 /*
