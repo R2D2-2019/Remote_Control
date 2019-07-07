@@ -6,7 +6,7 @@ r2d2::manual_control::steering_wheel_controller_c::steering_wheel_controller_c(
     hwlib::target::pin_adc &wheel, hwlib::target::pin_adc &pedals
     
 ): 
-    manualControl_c(4, 0, 0, 1, 0, 1, 1),
+    manual_control_c(4, 0, 0, 1, 0, 1, 1),
     buttons{&button1, &button2, &button3, &button4},
     sliders{&wheel, &pedals}
 {}

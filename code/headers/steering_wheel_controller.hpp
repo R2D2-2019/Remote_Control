@@ -10,7 +10,7 @@ namespace r2d2::manual_control {
      * Class steering_wheel_controller_c provides functions
      * for reading the data of the trust steering wheel.
      */
-    class steering_wheel_controller_c : public manualControl_c {
+    class steering_wheel_controller_c : public manual_control_c {
     private:
         std::array<hwlib::target::pin_in *, 4> buttons;
         std::array<hwlib::target::pin_adc *, 2> sliders;

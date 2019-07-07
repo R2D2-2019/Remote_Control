@@ -58,7 +58,7 @@ namespace r2d2::manual_control {
         return os;
     }
 
-    class manualControl_c {
+    class manual_control_c {
     protected:
         capabilities_s m_capabilities; // default capabillities
 
@@ -71,12 +71,21 @@ namespace r2d2::manual_control {
          * \details
          * This is the constructor for manual control.
          */
-        manualControl_c(uint8_t button_count = 4, bool e_axes_ly = 0,
-                        bool e_axes_rx = 0, bool axes_lx = 1, bool axes_ly = 1,
-                        bool axes_rx = 1, bool axes_ry = 1)
-            : m_capabilities{button_count, e_axes_ly, e_axes_rx, axes_lx,
-                             axes_ly,      axes_rx,   axes_ry} {
-        }
+        manual_control_c(uint8_t button_count = 4, 
+                        bool e_axes_ly = 0,
+                        bool e_axes_rx = 0, 
+                        bool axes_lx = 1, 
+                        bool axes_ly = 1,
+                        bool axes_rx = 1, 
+                        bool axes_ry = 1): 
+            m_capabilities{button_count, 
+                            e_axes_ly, 
+                            e_axes_rx, 
+                            axes_lx,
+                            axes_ly,      
+                            axes_rx,   
+                            axes_ry} 
+        {}
 
         /**
          * \brief
