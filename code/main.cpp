@@ -4,6 +4,7 @@
 #include <manual_control.hpp>
 #include <steering_wheel_controller.hpp>
 #include <ps2_bus.hpp>
+#include <ps2_mat.hpp>
 
 typedef hwlib::target::pins duepin ;
 namespace target = hwlib::target;
@@ -19,14 +20,15 @@ int main(void) {
     auto mosi = hwlib::target::pin_out(duepin::d2);
     auto ack = target::pin_in(duepin::d25);
 
-    const uint8_t poll_command[8] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    //const uint8_t poll_command[8] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-    ps2_bus_c mat(ss, sclk, miso, mosi, ack);
-
+    ps2_bus_c bus(ss, sclk, miso, mosi, ack);
+    ps2_mat_c controller(bus);
+    //std::array<uint8_t, 9> data = mat.read_write(poll_command, 8);
+    std::array<uint8_t, 8> data = controller.read_mat();
     for (;;) {
-        mat.read_write(poll_command, 8);
         for(int i = 0; i < 8; i++){
-            hwlib::cout << mat.last_data[i] << "\n";
+            hwlib::cout << data[i] << "\n";
         }
         hwlib::cout << "end\n";
         hwlib::wait_ms(1000);
