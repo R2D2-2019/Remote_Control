@@ -14,11 +14,11 @@ ps2_bus_c::ps2_bus_c(
         acknowledge(acknowledge)
         {}
 
-void ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
+std::array<uint8_t, 8> ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
 
     attention.write( 0 );
     hwlib::wait_us(10);
-    uint8_t data_in[9] = {0};
+    uint8_t data_in[8] = {0};
     auto counter = data_in;
 
     for( uint_fast8_t i = 0; i < n; ++i ){
@@ -49,7 +49,8 @@ void ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
     wait_half_period();
     attention.write( 1 );
     wait_half_period();
-    //last_data = data_out;
+    std::array<uint8_t, 8> last_data;
     std::copy(std::begin(data_in), std::end(data_in), std::begin(last_data));
+    return last_data;
 }
 
