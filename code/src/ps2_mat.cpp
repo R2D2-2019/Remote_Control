@@ -1,10 +1,10 @@
 #include <ps2_mat.hpp>
 
-ps2_controller_c::ps2_controller_c(ps2_bus_c &ps2_bus):
+r2d2::ps2_controller_c::ps2_controller_c(ps2_bus_c &ps2_bus):
     ps2_bus(ps2_bus)
     {}
 
-std::array<uint8_t, 8> ps2_controller_c::read_raw(){
+std::array<uint8_t, 8> r2d2::ps2_controller_c::read_raw(){
     std::array<uint8_t, 8> data = ps2_bus.read_write(poll_command, 8);
     if(!(data[1] == 65 && data[2] == 90)){
         data.fill(255);
@@ -12,9 +12,9 @@ std::array<uint8_t, 8> ps2_controller_c::read_raw(){
     return data;
 }
 
-button_states_s ps2_controller_c::get_button_states(){
+r2d2::button_states_s r2d2::ps2_controller_c::get_button_states(){
     std::array<uint8_t, 8> raw_data = read_raw();
-    button_states_s states;
+    r2d2::button_states_s states;
     states.select = ((raw_data[3]&select_mask) == 0);
     states.start = ((raw_data[3]&start_mask) == 0);
     states.up = ((raw_data[3]&up_mask) == 0);

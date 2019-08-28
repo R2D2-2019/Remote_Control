@@ -1,6 +1,6 @@
 #include <ps2_bus.hpp>
 
-ps2_bus_c::ps2_bus_c(
+r2d2::ps2_bus_c::ps2_bus_c(
         hwlib::pin_out &attention,
         hwlib::pin_out &clock,
         hwlib::pin_in &data,
@@ -14,7 +14,7 @@ ps2_bus_c::ps2_bus_c(
         acknowledge(acknowledge)
         {}
 
-std::array<uint8_t, 8> ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
+std::array<uint8_t, 8> r2d2::ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
 
     attention.write( 0 );
     hwlib::wait_us(10);
@@ -54,7 +54,7 @@ std::array<uint8_t, 8> ps2_bus_c::read_write(const uint8_t command_data[], uint8
     return last_data;
 }
 
-void ps2_bus::wait_half_period(){
+void r2d2::ps2_bus_c::wait_half_period(){
     hwlib::wait_us( 5 );
 }
 

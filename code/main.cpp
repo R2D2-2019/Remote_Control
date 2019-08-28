@@ -1,8 +1,4 @@
-#include <comm.hpp>
-#include <dummy_controller.hpp>
 #include <hwlib.hpp>
-#include <manual_control.hpp>
-#include <steering_wheel_controller.hpp>
 #include <ps2_bus.hpp>
 #include <ps2_mat.hpp>
 
@@ -20,16 +16,11 @@ int main(void) {
     auto mosi = hwlib::target::pin_out(duepin::d2);
     auto ack = target::pin_in(duepin::d25);
 
-    //const uint8_t poll_command[8] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-    ps2_bus_c bus(ss, sclk, miso, mosi, ack);
-    ps2_controller_c controller(bus);
-    //std::array<uint8_t, 9> data = mat.read_write(poll_command, 8);
-    //std::array<uint8_t, 8> data = controller.read_mat();
-    
+    r2d2::ps2_bus_c bus(ss, sclk, miso, mosi, ack);
+    r2d2::ps2_controller_c controller(bus);
 
     for (;;) {
-        button_states_s states = controller.get_button_states();
+        r2d2::button_states_s states = controller.get_button_states();
         hwlib::cout << "select:" << states.select << "\n";
         hwlib::cout << "start:" << states.start << "\n";
         hwlib::cout << "up:" << states.up << "\n";
