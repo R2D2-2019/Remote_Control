@@ -54,3 +54,7 @@ std::array<uint8_t, 8> ps2_bus_c::read_write(const uint8_t command_data[], uint8
     return last_data;
 }
 
+void ps2_bus::wait_half_period(){
+    hwlib::wait_us( 5 );
+}
+

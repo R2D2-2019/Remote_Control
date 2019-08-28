@@ -23,7 +23,7 @@ int main(void) {
     //const uint8_t poll_command[8] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
     ps2_bus_c bus(ss, sclk, miso, mosi, ack);
-    ps2_mat_c controller(bus);
+    ps2_controller_c controller(bus);
     //std::array<uint8_t, 9> data = mat.read_write(poll_command, 8);
     //std::array<uint8_t, 8> data = controller.read_mat();
     
