@@ -25,12 +25,27 @@ int main(void) {
     ps2_bus_c bus(ss, sclk, miso, mosi, ack);
     ps2_mat_c controller(bus);
     //std::array<uint8_t, 9> data = mat.read_write(poll_command, 8);
-    std::array<uint8_t, 8> data = controller.read_mat();
+    //std::array<uint8_t, 8> data = controller.read_mat();
+    
+
     for (;;) {
-        for(int i = 0; i < 8; i++){
-            hwlib::cout << data[i] << "\n";
-        }
+        button_states_s states = controller.get_button_states();
+        hwlib::cout << "select:" << states.select << "\n";
+        hwlib::cout << "start:" << states.start << "\n";
+        hwlib::cout << "up:" << states.up << "\n";
+        hwlib::cout << "down:" << states.down << "\n";
+        hwlib::cout << "left:" << states.left << "\n";
+        hwlib::cout << "right:" << states.right << "\n";
+
+        hwlib::cout << "l1:" << states.l1 << "\n";
+        hwlib::cout << "l2:" << states.l2 << "\n";
+        hwlib::cout << "r1:" << states.r1 << "\n";
+        hwlib::cout << "r2:" << states.r2 << "\n";
+        hwlib::cout << "square:" << states.square << "\n";
+        hwlib::cout << "cross:" << states.cross << "\n";
+        hwlib::cout << "triangle:" << states.triangle << "\n";
+        hwlib::cout << "circle:" << states.circle << "\n";
         hwlib::cout << "end\n";
-        hwlib::wait_ms(1000);
+        hwlib::wait_ms(5000);
     }
 }
