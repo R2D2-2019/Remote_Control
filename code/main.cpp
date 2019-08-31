@@ -1,30 +1,42 @@
-#include <comm.hpp>
-#include <dummy_controller.hpp>
 #include <hwlib.hpp>
-#include <manual_control.hpp>
-#include <steering_wheel_controller.hpp>
+#include <ps2_bus.hpp>
+#include <ps2_mat.hpp>
+
+typedef hwlib::target::pins duepin ;
+namespace target = hwlib::target;
 
 int main(void) {
     // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
     hwlib::wait_ms(1000);
 
-    auto button1 = hwlib::target::pin_in(hwlib::target::pins::d2);
-    auto button2 = hwlib::target::pin_in(hwlib::target::pins::d3);
-    auto button3 = hwlib::target::pin_in(hwlib::target::pins::d4);
-    auto button4 = hwlib::target::pin_in(hwlib::target::pins::d5);
-    auto wheel = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
-    auto pedals = hwlib::target::pin_adc(hwlib::target::ad_pins::a1);
+    auto ss = hwlib::target::pin_out(duepin::d7);
+    auto sclk = hwlib::target::pin_out(duepin::d4);
+    auto miso = hwlib::target::pin_in(duepin::d12);
+    auto mosi = hwlib::target::pin_out(duepin::d2);
+    auto ack = target::pin_in(duepin::d25);
 
-    auto test = r2d2::manual_control::steering_wheel_controller_c(
-        1, button1, button2, button3, button4, wheel, pedals);
-
-    r2d2::comm_c comm;
-    r2d2::manual_control::module_c controller(comm, test);
-
+    r2d2::ps2_bus_c bus(ss, sclk, miso, mosi, ack);
+    r2d2::ps2_controller_c controller(bus);
     for (;;) {
-        controller.process();
+        // r2d2::button_states_s states = controller.get_button_states();
+        // hwlib::cout << "select:" << states.select << "\n";
+        // hwlib::cout << "start:" << states.start << "\n";
+        // hwlib::cout << "up:" << states.up << "\n";
+        // hwlib::cout << "down:" << states.down << "\n";
+        // hwlib::cout << "left:" << states.left << "\n";
+        // hwlib::cout << "right:" << states.right << "\n";
 
-        hwlib::wait_ms(100);
+        // hwlib::cout << "l1:" << states.l1 << "\n";
+        // hwlib::cout << "l2:" << states.l2 << "\n";
+        // hwlib::cout << "r1:" << states.r1 << "\n";
+        // hwlib::cout << "r2:" << states.r2 << "\n";
+        // hwlib::cout << "square:" << states.square << "\n";
+        // hwlib::cout << "cross:" << states.cross << "\n";
+        // hwlib::cout << "triangle:" << states.triangle << "\n";
+        // hwlib::cout << "circle:" << states.circle << "\n";
+        // hwlib::cout << "end\n";
+        hwlib::cout << controller.get_button(r2d2::button_cross) << "\n";
+        hwlib::wait_ms(5000);
     }
 }
