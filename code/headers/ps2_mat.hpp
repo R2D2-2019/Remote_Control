@@ -25,22 +25,41 @@ namespace r2d2 {
         bool right = 0;
     };
     /*
-    *   This class is the ps2_controller interface that uses the ps2 bus for sending and receiving data.
-    *   Right now it only works for digital buttons.
-    */
+    *Enum used to for checking individual buttons.
+    */        
+    enum buttons {
+        button_circle,
+        button_cross,
+        button_triangle,
+        button_square,
+        button_up,
+        button_down,
+        button_left,
+        button_right,
+        button_l1,
+        button_l2,
+        button_r1,
+        button_r2,
+        button_start,
+        button_select
+    };
+        /*
+        *   This class is the ps2_controller interface that uses the ps2 bus for sending and receiving data.
+        *   Right now it only works for digital buttons.
+        */
         class ps2_controller_c{
         private:
-    /*
-    *   The ps2 bus used for communicating with the ps2 controller.
-    */
+                /*
+                *   The ps2 bus used for communicating with the ps2 controller.
+                */
             r2d2::ps2_bus_c &ps2_bus;
-    /*
-    *   Method used to get the raw data button data from the controller.
-    */
+                /*
+                *   Method used to get the raw data button data from the controller.
+                */
             std::array<uint8_t, 8> read_raw();
-    /*
-    *   All masks used to check if a certain button is pressed.
-    */
+        /*
+        *   All masks used to check if a certain button is pressed.
+        */
             //button masks
             //byte 1
             uint8_t start_mask = 8;
@@ -61,20 +80,24 @@ namespace r2d2 {
             uint8_t circle_mask = 32;
 
         public:
-    /*
-    *   Constructor.
-    *   @param ps2_bus is the bus used to communicate with the ps2 controller.
-    */
+        /*
+        *   Constructor.
+        *   @param ps2_bus is the bus used to communicate with the ps2 controller.
+        */
             ps2_controller_c(ps2_bus_c &ps2_bus);
-    /*
-    *   Commands used for interfacing with the ps2_controller
-    */
+        /*
+        *   Commands used for interfacing with the ps2_controller
+        */
             //commands
             const uint8_t poll_command[8] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-    /*
-    *   Method to get more usable data from the buttons pressed.
-    *   Returns true or false for every button.
-    */
+        /*
+        *   Method to get more usable data from the buttons pressed.
+        *   Returns true or false for every button.
+        */
             button_states_s get_button_states();
+        /*
+        *   Method used to check if a specific button is pressed.
+        */
+            bool get_button(r2d2::buttons button);
         };
 };

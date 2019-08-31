@@ -15,13 +15,12 @@ r2d2::ps2_bus_c::ps2_bus_c(
         {}
 
 std::array<uint8_t, 8> r2d2::ps2_bus_c::read_write(const uint8_t command_data[], uint8_t n){
-
     attention.write( 0 );
     hwlib::wait_us(10);
     uint8_t data_in[8] = {0};
     auto counter = data_in;
 
-    for( uint_fast8_t i = 0; i < n; ++i ){
+    for( uint_fast8_t i = 0; i < n; i++){
 
         uint_fast8_t d = 
             ( command_data == nullptr )
@@ -45,6 +44,7 @@ std::array<uint8_t, 8> r2d2::ps2_bus_c::read_write(const uint8_t command_data[],
             *counter++ = d;
         }
         hwlib::wait_us(50);
+
     }      
     wait_half_period();
     attention.write( 1 );
